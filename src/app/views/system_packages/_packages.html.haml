@@ -104,6 +104,19 @@
             = render :partial => 'package_items', :locals => {:editable => editable, :package_tasks => package_tasks,
                                                               :group_tasks => group_tasks, :packages => packages}
 
+        %table.filter_table_hidden{:style => "display: none;"}
+          %tbody
+            - packages_all.each do |p|
+              %tr{:class => row_shading + ' package_hidden'}
+                - if editable
+                  %td.package_select
+                    = check_box_tag "package[#{p.name}]", "0", false, {:tabindex => auto_tab_index}
+                -#%td.package_status.packages_icon
+                %td.package_name
+                  #{p.nvrea}
+                %td.package_action_status
+
+
       #list-spinner
         = image_tag("embed/icons/spinner.gif", :class=>"ajax_scroll")
 

@@ -136,7 +136,9 @@ class SystemPackagesController < ApplicationController
           packages.reverse!
         end
       end
+      packages_all = packages
       packages = packages[0...offset]
+      
     else
       packages = []
     end
@@ -147,6 +149,7 @@ class SystemPackagesController < ApplicationController
                                       :state => [:waiting, :running])
 
     render :partial=>"packages", :layout => "tupane_layout", :locals=>{:system => @system, :packages => packages,
+                                                                       :packages_all => packages_all,
                                                                        :total_packages => total_packages,
                                                                        :package_tasks => package_tasks,
                                                                        :group_tasks => group_tasks,
