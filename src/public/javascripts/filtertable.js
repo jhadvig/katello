@@ -14,11 +14,11 @@ var filtertable = (function() {
     return {
         initialize : function() {
 
-            if ( $('table.filter_table_hidden').length > 0 ){
+            var theTableHidden = $('table.filter_table_hidden');
+            var theTable = $('table.filter_table');
+            var filter = $('#filter');
 
-                var theTable = $('table.filter_table');
-                var theTableHidden = $('table.filter_table_hidden');
-                var filter = $('#filter');
+            if ( theTableHidden.length > 0 ){
                 var load_more = $('a#more');
                 var load_summary = $('span#loaded_summary');
 
@@ -37,9 +37,6 @@ var filtertable = (function() {
                 });
 
             } else {
-                var theTable = $('table.filter_table');
-                var filter = $('#filter');
-
                 filter.live('change, keyup', function(){
                 $.uiTableFilter(theTable, this.value);
                 });
