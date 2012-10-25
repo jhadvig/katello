@@ -27,7 +27,10 @@ var filtertable = (function() {
                     theTable.hide();
                     load_more.hide();
                     load_summary.hide();
+                    theTableHidden.find('tr').removeClass('alt')
                     theTableHidden.show();
+                    theTableHidden.find('tr:visible:even').addClass('alt')
+                    
                     if ( this.value == '' ) {
                         theTable.show();   
                         load_more.show();

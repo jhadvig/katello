@@ -286,6 +286,9 @@ table {
     padding: 4px;
     vertical-align: top;
     min-height: 16px;
+    &.package_select {
+        width: 29px;
+    }
   }
   &.noborder {
     border: none;

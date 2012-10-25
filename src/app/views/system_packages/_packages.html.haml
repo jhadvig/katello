@@ -105,6 +105,12 @@
                                                               :group_tasks => group_tasks, :packages => packages}
 
         %table.filter_table_hidden{:style => "display: none;"}
+          %thead
+            %th{:colspan => 3}
+              %span.fr.details-icon.system_content_action{"data-help" => _('This table allows you to initiate package updates or removals as well as update all packages.  In order to update or remove packages, simply select the packages you are interested in and click Update or Remove.  In order to update all packages, click Update All when no packages are selected.')}
+              %a#package_sort
+                #{_("Name")}
+
           %tbody
             - packages_all.each do |p|
               %tr{:class => row_shading + ' package_hidden'}
