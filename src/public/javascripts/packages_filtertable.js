@@ -10,14 +10,30 @@
  have received a copy of GPLv2 along with this software; if not, see
  http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
 */
-var filtertable = (function() {
+var packages_filtertable = (function() {
     return {
         initialize : function() {
+            var theTableHidden = $('table.filter_table_hidden');
             var theTable = $('table.filter_table');
             var filter = $('#filter');
+            var load_more = $('a#more');
+            var load_summary = $('span#loaded_summary');
 
             filter.live('change, keyup', function(){
-                $.uiTableFilter(theTable, this.value);
+                $.uiTableFilter(theTableHidden, this.value);
+                theTable.hide();
+                load_more.css('visibility','hidden'); 
+                load_summary.css('visibility','hidden');
+                theTableHidden.find('tr').removeClass('alt')
+                theTableHidden.show();
+                theTableHidden.find('tr:visible:even').addClass('alt')
+                
+                if ( this.value == '' ) {
+                    theTable.show();   
+                    load_more.css('visibility','visible');
+                    load_summary.css('visibility','visible');
+                    theTableHidden.hide();
+                }
             });
 
             //override the submit so it doesn't try to push a form
@@ -25,12 +41,13 @@ var filtertable = (function() {
                 filter.keyup();
                 return false;
             }).focus(); //Give focus to input field
-            $('.filter_button').click(function(){filter.change()});
+            $('.filter_button').click(function(){filter.change()});            
+
         }
     }
 })();
 
 $(document).ready(function() {
     // initialize the filter table
-    filtertable.initialize();
+    packages_filtertable.initialize();
 });
