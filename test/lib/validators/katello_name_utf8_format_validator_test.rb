@@ -1,3 +1,4 @@
+# encoding: utf-8
 #
 # Copyright 2013 Red Hat, Inc.
 #
@@ -13,15 +14,15 @@
 
 require 'minitest_helper'
 
-class KatelloNameFormatValidatorTest < MiniTest::Rails::ActiveSupport::TestCase
+class KatelloNameUtf8FormatValidatorTest < MiniTest::Rails::ActiveSupport::TestCase
 
   def setup
-    @validator = Validators::KatelloNameFormatValidator.new({:attributes => [:name]})
+    @validator = Validators::KatelloNameUtf8FormatValidator.new({:attributes => [:name]})
     @model = OpenStruct.new(:errors => {:name => []})
   end
 
   def test_validate_each
-    @validator.validate_each(@model, :name, "Test2 Name_underline-dash")
+    @validator.validate_each(@model, :name, "Test2 Name_underline-dash änd útf8")
 
     assert_empty @model.errors[:name]
   end
@@ -48,12 +49,6 @@ class KatelloNameFormatValidatorTest < MiniTest::Rails::ActiveSupport::TestCase
 
   test "fails with trailing white space" do
     @validator.validate_each(@model, :name, "Trailing Whitespace   ")
-
-    refute_empty @model.errors[:name]
-  end
-
-  test "fails with UTF-8 characters" do
-    @validator.validate_each(@model, :name, "Téstíng Nämé")
 
     refute_empty @model.errors[:name]
   end

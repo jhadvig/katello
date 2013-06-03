@@ -31,7 +31,7 @@ class ActivationKey < ActiveRecord::Base
 
   after_find :validate_pools
 
-  validates_with Validators::KatelloNameFormatValidator, :attributes => :name
+  validates_with Validators::KatelloNameUtf8FormatValidation, :attributes => :name
   validates :name, :presence => true
   validates_uniqueness_of :name, :scope => :organization_id
   validates_with Validators::KatelloDescriptionFormatValidator, :attributes => :description
